@@ -1,0 +1,22 @@
+# Quartus Files
+c5_pin_model_dump.txt
+*.settings
+*.summary
+*.classpath
+*.project
+*.done
+*.qdf
+*.cdf
+*.rpt
+*.smsg
+*.jdi
+*.pin
+*.sof
+*.sld
+incremental_db/
+simulation/
+target/
+bin/
+db/
+
+
