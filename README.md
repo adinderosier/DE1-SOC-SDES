@@ -7,7 +7,7 @@ The purpose of this project is to make a complete SDES system on the DE1-SoC
 ## Video Demo
 > **TODO**
 ## Build Dependencies
-* Quartus Prime Lite (20.1.1ltd): https://www.intel.com/content/www/us/en/software-kit/660907/intel-quartus-prime-lite-edition-design-software-version-20-1-1-for-windows.html 
+* Quartus Prime: https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime.html
 ## File/Folder Structure
 > **Note** changes may be made to the file structure before the final commit
 >
