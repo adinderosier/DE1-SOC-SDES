@@ -1,6 +1,10 @@
+// File: switch_s0.sv
+// Author: Adin De'Rosier
+// Description: A 4:2 SDES left hand switch module implemented in SystemVerilog.
+
 module switch_s0(
-    input  wire [3:0] i_signal,
-    output wire [1:0] o_signal
+    input  wire [3:0] i_signal,  // 4-bit input signal
+    output wire [1:0] o_signal   // 2-bit output signal
 );
 
 	always_comb begin
@@ -21,7 +25,7 @@ module switch_s0(
 			4'b1101: o_signal = 2'b11; // 3
 			4'b1110: o_signal = 2'b11; // 3
 			4'b1111: o_signal = 2'b10; // 2
-			default: o_signal = 2'b11; // Invalid BCD input, set to default value
 		endcase
 	end
+	
 endmodule

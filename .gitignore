@@ -13,8 +13,8 @@ c5_pin_model_dump.txt
 *.pin
 *.sof
 *.sld
+*.bak
 incremental_db/
-simulation/
 target/
 bin/
 db/
