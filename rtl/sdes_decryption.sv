@@ -8,6 +8,7 @@ module sdes_decryption(
     input  wire [7:0] i_key2,       // 8-bit input key 2 (K2)
 	 output wire [7:0] o_plaintext   // 8-bit output plaintext
 );
+
 	// Permutation IP
 	wire [7:0] pip_key;
 	permutation_ip pip(
@@ -81,5 +82,6 @@ module sdes_decryption(
 	permutation_inverse_ip piip(
 		.i_signal({xor4_key1, xor4_key2}), 
 		.o_signal(o_plaintext)
-	); 
+	);
+
 endmodule

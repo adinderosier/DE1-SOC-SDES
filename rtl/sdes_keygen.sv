@@ -1,5 +1,5 @@
 module sdes_keygen (
-    input  wire [9:0] i_key,      // 10-bit input key
+    input  wire [9:0] i_key,       // 10-bit input key
     output wire [7:0] o_key1,      // 8-bit output key 1 (K1)
     output wire [7:0] o_key2       // 8-bit output key 2 (K2)
 );

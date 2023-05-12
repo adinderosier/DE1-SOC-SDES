@@ -31,4 +31,3 @@ module bcd_to_sseg (
     end
 
 endmodule
-

@@ -10,14 +10,14 @@ module circular_left_shift #(
     output wire [NUM_IOBUFS-1:0] o_signal    // Output signal (Size of NUM_IOBUFS - 1)
 );
 
-genvar i;
+    genvar i;
 
-// Generate a block of code for each bit of the output signal
-generate
-	for (i = 0; i < NUM_IOBUFS; i++) begin : generate_block_left_shift
-		// Assign the shifted value to the output signal
-		assign o_signal[i] = i_signal[(i - NUM_SHIFT + NUM_IOBUFS) % NUM_IOBUFS];
-	end
-endgenerate
+    // Generate a block of code for each bit of the output signal
+    generate
+        for (i = 0; i < NUM_IOBUFS; i++) begin : generate_block_left_shift
+            // Assign the shifted value to the output signal
+            assign o_signal[i] = i_signal[(i - NUM_SHIFT + NUM_IOBUFS) % NUM_IOBUFS];
+        end
+    endgenerate
 
 endmodule
