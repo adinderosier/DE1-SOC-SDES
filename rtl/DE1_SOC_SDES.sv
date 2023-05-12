@@ -34,7 +34,7 @@ module DE1_SOC_SDES(
 	sdes_keygen (input_Key, Key1, Key2);
 	sdes_encryption (Plaintext, Key1, Key2, new_Ciphertext);
 	sdes_decryption (Ciphertext, Key1, Key2, new_Plaintext);
-
+	
 	bcd_to_sseg s0 (Key1[3:0], HEX0);
 	bcd_to_sseg s1 (Key1[7:4], HEX1);
 	bcd_to_sseg s2 (Key2[3:0], HEX2);
@@ -118,5 +118,4 @@ module DE1_SOC_SDES(
 			endcase
 		end
 	end
-
 endmodule
