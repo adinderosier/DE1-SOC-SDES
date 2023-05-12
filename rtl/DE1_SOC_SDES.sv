@@ -19,7 +19,6 @@ module DE1_SOC_SDES(
 //=======================================================
 //  REG/Wire declarations
 //=======================================================
-	wire mode;
 	wire [9:0] input_Key;
 	wire [7:0] Key1;
 	wire [7:0] Key2;
@@ -31,6 +30,7 @@ module DE1_SOC_SDES(
 //=======================================================
 //  Structural coding
 //=======================================================
+
 	sdes_keygen (input_Key, Key1, Key2);
 	sdes_encryption (Plaintext, Key1, Key2, new_Ciphertext);
 	sdes_decryption (Ciphertext, Key1, Key2, new_Plaintext);
@@ -56,69 +56,67 @@ module DE1_SOC_SDES(
 
 	// Define state register and initialize
 	reg [2:0] state_reg = IDLE;
+	// Define mode register and initialize
+	reg mode = 1'b0;
 	// Define led register and initialize
 	reg [7:0] led_reg = 8'b0;
-
-	// Define next state logic
+	
+	// State machine
 	always_ff @(posedge CLOCK_50) begin
-		if (KEY[1]) begin
+		if (~KEY[1]) begin
+			// Reset state
 			state_reg <= IDLE;
-		end else if (KEY[0]) begin
+		end else if (~KEY[0]) begin
 			case(state_reg)
 				IDLE: begin
+					// Set 10-bit key from switches
+					input_Key <= SW;
+					// Update state
 					state_reg <= KEY_INPUT;
 				end
 				KEY_INPUT: begin
+					// Set mode from switch
+					mode <= SW[0];
+					// Update state
 					state_reg <= MODE_INPUT;
 				end
 				MODE_INPUT: begin
 					if (mode == 0) begin
+						// Update state
 						state_reg <= PLAINTEXT_INPUT;
 					end else begin
+						// Update state
 						state_reg <= CIPHERTEXT_INPUT;
 					end
 				end
 				PLAINTEXT_INPUT: begin
+					// Set plaintext from switches
+					Plaintext <= SW[9:2];
+					// Update state
 					state_reg <= ENCRYPT;
 				end
 				CIPHERTEXT_INPUT: begin
+					// Set ciphertext from switches
+					Ciphertext <= SW[9:2];
+					// Update state
 					state_reg <= DECRYPT;
 				end
 				ENCRYPT: begin
+					// Final output
+					//led_reg <= new_Ciphertext;
+					LEDR[9:2] <= new_Ciphertext;
+					// Update state
 					state_reg <= IDLE;
 				end
 				DECRYPT: begin
+					// Final output
+					//led_reg <= new_Plaintext;
+					LEDR[9:2] <= new_Plaintext;
+					// Update state
 					state_reg <= IDLE;
 				end
 			endcase
 		end
-	end
-
-	// Define output logic
-	always_ff @(posedge CLOCK_50) begin
-		case(state_reg)
-			IDLE: begin
-				LEDR[9:2] <= led_reg;
-				input_Key <= SW;
-			end
-			KEY_INPUT: begin
-				mode <= SW[0];
-			end
-			MODE_INPUT: begin
-			end
-			PLAINTEXT_INPUT: begin
-				Plaintext <= SW[9:2];
-			end
-			CIPHERTEXT_INPUT: begin
-				Ciphertext <= SW[9:2];
-			end
-			ENCRYPT: begin
-				led_reg <= new_Ciphertext[7:0];
-			end
-			DECRYPT: begin
-				led_reg <= new_Plaintext[7:0];
-			end
-		endcase
 	end
 
 endmodule
