@@ -56,11 +56,11 @@ module sdes_encryption(
 	// Switch S0 and S1 Key 2
 	wire [3:0] sw_key2;
 	switch_s0 s0_2(
-		.i_signal(xor8_key1[7:4]),
+		.i_signal(xor8_key2[7:4]),
 		.o_signal(sw_key2[3:2])
 	);
 	switch_s1 s1_2(
-		.i_signal(xor8_key1[3:0]), 
+		.i_signal(xor8_key2[3:0]), 
 		.o_signal(sw_key2[1:0])
 	);
 	
