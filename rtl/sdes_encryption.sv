@@ -1,3 +1,7 @@
+// File: sdes_ecryption.sv
+// Author: Adin De'Rosier
+// Description: Simplified DES Ecryption module implemented in SystemVerilog.
+
 module sdes_encryption(
     input  wire [7:0] i_plaintext,  // 8-bit input plaintext
     input  wire [7:0] i_key1,       // 8-bit input key 1 (K1)
@@ -55,11 +59,11 @@ module sdes_encryption(
 	// Switch S0 and S1 Key 2
 	wire [3:0] sw_key2;
 	switch_s0 s0_2(
-		.i_signal(xor8_key1[7:4]),
+		.i_signal(xor8_key2[7:4]),
 		.o_signal(sw_key2[3:2])
 	);
 	switch_s1 s1_2(
-		.i_signal(xor8_key1[3:0]), 
+		.i_signal(xor8_key2[3:0]), 
 		.o_signal(sw_key2[1:0])
 	);
 	

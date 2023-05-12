@@ -1,3 +1,7 @@
+// File: sdes_decryption.sv
+// Author: Adin De'Rosier
+// Description: Simplified DES Decryption module implemented in SystemVerilog.
+
 module sdes_decryption(
     input  wire [7:0] i_ciphertext, // 8-bit input ciphertext
     input  wire [7:0] i_key1,       // 8-bit input key 1 (K1)

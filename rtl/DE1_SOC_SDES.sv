@@ -45,12 +45,12 @@ module DE1_SOC_SDES(
 	sdes_keygen (SW, Key1, Key2);
 	sdes_encryption (Plaintext, Key1, Key2, Ciphertext);
 	sdes_decryption (Ciphertext, Key1, Key2, new_Plaintext);
-
+	
 	bcd_to_sseg s0 (Key1[3:0], HEX0);
 	bcd_to_sseg s1 (Key1[7:4], HEX1);
 	bcd_to_sseg s2 (Key2[3:0], HEX2);
 	bcd_to_sseg s3 (Key2[7:4], HEX3);
 	
-	assign LEDR = new_Plaintext;
-	assign Plaintext = 8'b10010111;
+	assign LEDR = Ciphertext;
+	assign Plaintext = 8'b01010101;
 endmodule
