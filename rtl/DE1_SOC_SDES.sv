@@ -44,6 +44,8 @@ module DE1_SOC_SDES(
 	bcd_to_sseg s1 (Key1[7:4], HEX1);
 	bcd_to_sseg s2 (Key2[3:0], HEX2);
 	bcd_to_sseg s3 (Key2[7:4], HEX3);
+	
+	assign HEX4 = state_reg;
 
 //=======================================================
 //  Behavioral coding
@@ -108,14 +110,12 @@ module DE1_SOC_SDES(
 				end
 				ENCRYPT: begin
 					// Final output
-					//led_reg <= new_Ciphertext;
 					LEDR[9:2] <= new_Ciphertext;
 					// Update state
 					state_reg <= IDLE;
 				end
 				DECRYPT: begin
 					// Final output
-					//led_reg <= new_Plaintext;
 					LEDR[9:2] <= new_Plaintext;
 					// Update state
 					state_reg <= IDLE;
