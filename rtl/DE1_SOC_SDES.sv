@@ -26,6 +26,9 @@ module DE1_SOC_SDES(
 	wire [7:0] new_Plaintext;
 	wire [7:0] Ciphertext;
 	wire [7:0] new_Ciphertext;
+	
+	wire btn_0;
+	wire btn_1;
 
 //=======================================================
 //  Structural coding
@@ -34,6 +37,8 @@ module DE1_SOC_SDES(
 	sdes_keygen (input_Key, Key1, Key2);
 	sdes_encryption (Plaintext, Key1, Key2, new_Ciphertext);
 	sdes_decryption (Ciphertext, Key1, Key2, new_Plaintext);
+	debounce d0 (CLOCK_50, 1'b1, KEY[0], btn_0);
+	debounce d1 (CLOCK_50, 1'b1, KEY[1], btn_1);
 	
 	bcd_to_sseg s0 (Key1[3:0], HEX0);
 	bcd_to_sseg s1 (Key1[7:4], HEX1);
@@ -63,10 +68,10 @@ module DE1_SOC_SDES(
 	
 	// State machine
 	always_ff @(posedge CLOCK_50) begin
-		if (~KEY[1]) begin
+		if (~btn_1) begin
 			// Reset state
 			state_reg <= IDLE;
-		end else if (~KEY[0]) begin
+		end else if (~btn_0) begin
 			case(state_reg)
 				IDLE: begin
 					// Set 10-bit key from switches
